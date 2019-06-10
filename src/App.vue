@@ -6,7 +6,7 @@
       <div class="list">
         <div
           class="item"
-          v-for="item in list"
+          v-for="(item, idx) in list"
         >
           <div class="music">
             <span class="music__title">{{ item.title }}</span>
@@ -27,7 +27,7 @@
             >
               <mb-ripple
                 color="blue"
-                @click="onClickLike"
+                @click="onClickLike(idx)"
               >
                 <i class="fas fa-thumbs-up"></i> {{ item.likes }}
               </mb-ripple>
@@ -38,7 +38,7 @@
             >
               <mb-ripple 
                 color="red"
-                @click="onClickHate"
+                @click="onClickHate(idx)"
               >
                 <i class="fas fa-thumbs-down"></i> {{ item.hates }}
               </mb-ripple>
@@ -57,28 +57,28 @@
         <div class="add__field">
           <span class="add__label">디미고 아이디</span>
           <input
-            type="text" class="add__input" v-model="form.id"
+            type="text" class="add__input" v-model.trim="form.id"
             placeholder="디미고 계정 아이디"
           />
         </div>
         <div class="add__field">
           <span class="add__label">디미고 패스워드</span>
           <input
-            type="password" class="add__input" v-model="form.password" 
+            type="password" class="add__input" v-model.trim="form.password" 
             placeholder="디미고 계정 패스워드"
           />
         </div>
         <div class="add__field">
           <span class="add__label"><strong>음악 제목</strong></span>
           <input
-            type="text" class="add__input" v-model="form.title"
+            type="text" class="add__input" v-model.trim="form.title"
             placeholder="추가할 음악 제목"
           />
         </div>
         <div class="add__field">
           <span class="add__label"><strong>아티스트 이름</strong></span>
           <input
-            type="text" class="add__input" v-model="form.artist"
+            type="text" class="add__input" v-model.trim="form.artist"
             placeholder="추가할 음악 아티스트"
           />
         </div>
@@ -147,7 +147,8 @@ export default {
           })
       },
 
-      onSubmit () { // TODO: 노트북 받으면 비동기로 바꾼다;;
+      onSubmit () { // TODO: 노트북 받으면 비동기로 바꾼다;; (change to async)
+        // validate input
         if (!this.form.id || !this.form.password) {
           this.$swal('에러!', '디미고 아이디와 패스워드를 모두 입력해 주세요!', 'warning')
           return                        
@@ -155,6 +156,7 @@ export default {
           this.$swal('에러!', '음악 제목과 아티스트 이름을 모두 입력해 주세요!', 'warning')
           return
         }
+
         // get dimigoin token
         this.$api.post('http://dev-api.dimigo.in/auth', {
           id: this.form.id,
@@ -173,12 +175,13 @@ export default {
 
             this.$api.post('', {
               headers: {
-                Authorization: 'Bearer ' + token //the token is a variable which holds the token
+                Authorization: token
               }
             }, payload)
               .then((res) => {
                 if (res.status === 200) {
                   this.$swal('성공!', '추가되었습니다.', 'success')
+                  this.clearForm()
                 }
               })
               .catch((error) => {
@@ -194,7 +197,44 @@ export default {
         const url = `https://www.youtube.com/results?search_query=${encodeURI(`${item.title} ${item.artist}`)}`
         const win = window.open(url, '_blank');
         win.focus();
-      }
+      },
+
+      async onClickLike (idx) {
+        const item = this.list[idx]
+        if (item.type === 1) // 이미 좋아요면
+          return
+        try {
+          await this.$api.post('', {
+            value: 1
+          })
+          await this.updateList()
+        } catch (err) {
+          await this.$swal('에러!', err.message, 'error')
+        }
+      },
+
+      async onClickHate (idx) {
+        const item = this.list[idx]
+        if (item.type === -1) // 이미 싫어요면
+          return
+        try {
+          await this.$api.post('', {
+            value: -1
+          })
+          await this.updateList()
+        } catch (err) {
+          await this.$swal('에러!', err.message, 'error')
+        }
+      },
+
+      clearForm () {
+        this.form = {
+          id: '',
+          password: '',
+          title: '',
+          artist: ''
+        }
+      },
     }
 }
 </script>

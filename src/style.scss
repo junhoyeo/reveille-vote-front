@@ -1,6 +1,10 @@
 @import url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
 @import url('https://cdn.jsdelivr.net/gh/dimigoin/dimigoincon@9e0a536bbf40b5e4aabbbee280acceaea559a4c7/css/dimigoincon.css');
 
+* {
+  user-select: none;
+}
+
 *:focus {
    outline: none;
 }
@@ -64,7 +68,6 @@ p {
 
   span {
     margin-right: 0.8em;
-    user-select: none;
   }
 
   span.likes {
@@ -76,12 +79,18 @@ p {
     cursor: pointer;
   }
 
-  span.likes:hover,
+  span.likes:hover {
+    color: rgb(153, 153, 153);
+  }
+
   span.likes.selected {
     color: rgb(154, 154, 255);
   }
 
-  span.hates:hover,
+  span.hates:hover {
+    color: rgb(153, 153, 153);
+  }
+
   span.hates.selected {
     color: rgb(252, 152, 152);
   }
@@ -103,6 +112,8 @@ p {
 }
 
 .music {
+  margin-bottom: 0.2em;
+
   &__title {
     font-weight: 700;
     margin-right: 0 !important;
@@ -114,8 +125,9 @@ p {
   }
 
   &__youtube {
-    color: #e83c3d;
+    color: gray;
     font-size: 0.8em;
+    font-weight: 600;
     cursor: pointer;
   }
 
@@ -127,7 +139,9 @@ p {
 .add {
   margin: auto;
   padding: 0.5em;
-  width: 90%;
+  padding-top: 0.7em;
+  padding-bottom: 0.7em;
+  width: 89%;
   border-radius: 18px;
   border: 0.5px solid rgba(128, 128, 128, 0.2);
   box-shadow: 15px 19px 32px -18px rgba(21,19,19,.07);
