@@ -63,9 +63,17 @@ p {
   }
 
   span {
-    margin-left: 0.8em;
-    cursor: pointer;
+    margin-right: 0.8em;
     user-select: none;
+  }
+
+  span.likes {
+    margin-left: 0.3em;
+  }
+
+  span.likes,
+  span.hates {
+    cursor: pointer;
   }
 
   span.likes:hover,
@@ -86,6 +94,7 @@ p {
 
   &__strong {
     font-weight: 600;
+    margin: 0 !important;
   }
 
   .mb-ripple {
@@ -96,10 +105,22 @@ p {
 .music {
   &__title {
     font-weight: 700;
+    margin-right: 0 !important;
+    margin-left: 0.3em !important;
   }
 
   &__artist {
     margin-left: 0.3em !important;
+  }
+
+  &__youtube {
+    color: #e83c3d;
+    font-size: 0.8em;
+    cursor: pointer;
+  }
+
+  .mb-ripple {
+    float: right;
   }
 }
 

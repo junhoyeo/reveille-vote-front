@@ -11,13 +11,24 @@
           <div class="music">
             <span class="music__title">{{ item.title }}</span>
             <span class="music__artist">{{ item.artist }}</span>
+            <mb-ripple
+              color="red"
+              @click="onClickYoutube(item)"
+            >
+              <span class="music__youtube">
+                <i class="fab fa-youtube"></i> 유튜브에서 검색하기
+              </span>
+            </mb-ripple>
           </div>
           <span class="item__thumb">
             <span
               class="likes"
               :class="{ selected: (item.type === 1) }"
             >
-              <mb-ripple color="blue">
+              <mb-ripple
+                color="blue"
+                @click="onClickLike"
+              >
                 <i class="fas fa-thumbs-up"></i> {{ item.likes }}
               </mb-ripple>
             </span>
@@ -25,7 +36,10 @@
               class="hates"
               :class="{ selected: (item.type === -1) }"
             >
-              <mb-ripple color="red">
+              <mb-ripple 
+                color="red"
+                @click="onClickHate"
+              >
                 <i class="fas fa-thumbs-down"></i> {{ item.hates }}
               </mb-ripple>
             </span>
@@ -68,11 +82,11 @@
             placeholder="추가할 음악 아티스트"
           />
         </div>
-        <mb-ripple color="#fff">
-          <button
-            @click="onSubmit"
-            class="add__submit"
-          >
+        <mb-ripple
+          color="#fff"
+          @click="onSubmit"
+        >
+          <button class="add__submit">
             추가하기
           </button>
         </mb-ripple>
@@ -134,6 +148,13 @@ export default {
       },
 
       onSubmit () { // TODO: 노트북 받으면 비동기로 바꾼다;;
+        if (!this.form.id || !this.form.password) {
+          this.$swal('에러!', '디미고 아이디와 패스워드를 모두 입력해 주세요!', 'warning')
+          return                        
+        } else if (!this.form.title || !this.form.artist) {
+          this.$swal('에러!', '음악 제목과 아티스트 이름을 모두 입력해 주세요!', 'warning')
+          return
+        }
         // get dimigoin token
         this.$api.post('http://dev-api.dimigo.in/auth', {
           id: this.form.id,
@@ -167,6 +188,12 @@ export default {
           .catch((error) => {
             this.$swal('로그인 실패!', '디미고 아이디와 패스워드를 확인해 주세요.', 'error')
           })
+      },
+
+      onClickYoutube (item) {
+        const url = `https://www.youtube.com/results?search_query=${encodeURI(`${item.title} ${item.artist}`)}`
+        const win = window.open(url, '_blank');
+        win.focus();
       }
     }
 }
