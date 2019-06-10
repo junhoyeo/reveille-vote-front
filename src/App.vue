@@ -88,6 +88,7 @@
 export default {
     async created () {
       await this.updateList()
+      // TODO: token 생성 시 timestamp와 함께 쿠키에 저장, created에서 불러와 적용 (reduce unnecessary API calls)
     },
 
     data () {
@@ -120,7 +121,7 @@ export default {
           })
       },
 
-      onSubmit () { // 노트북 받으면 비동기로 바꾼다;;
+      onSubmit () { // TODO: 노트북 받으면 비동기로 바꾼다;;
         // get dimigoin token
         this.$api.post('http://dev-api.dimigo.in/auth', {
           id: this.form.id,
