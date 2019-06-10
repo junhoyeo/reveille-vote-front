@@ -59,15 +59,18 @@ p {
   }
 
   span {
-    margin-left: 0.5em;
+    margin-left: 0.8em;
     cursor: pointer;
+    user-select: none;
   }
 
-  span.likes:hover {
+  span.likes:hover,
+  span.likes.selected {
     color: rgb(154, 154, 255);
   }
 
-  span.hates:hover {
+  span.hates:hover,
+  span.hates.selected {
     color: rgb(252, 152, 152);
   }
 
@@ -79,6 +82,10 @@ p {
 
   &__strong {
     font-weight: 600;
+  }
+
+  .mb-ripple {
+    margin: 0;
   }
 }
 
@@ -104,6 +111,7 @@ p {
   &__content {
     display: table;
     border-spacing: 0.5em;
+    width: 100%;
   }
 
   &__title {
@@ -156,6 +164,10 @@ p {
     font-family: 'NanumSquareRound', sans-serif;
     font-weight: 600;
     margin-top: 0.5em;
+  }
+
+  .mb-ripple {
+    width: 100%;
   }
 }
 

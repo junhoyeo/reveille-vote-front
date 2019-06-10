@@ -13,11 +13,21 @@
             <span class="music__artist">{{ item.artist }}</span>
           </div>
           <span class="item__thumb">
-            <span class="likes">
-              <i class="fas fa-thumbs-up"></i> {{ item.likes }}
+            <span
+              class="likes"
+              :class="{ selected: (item.type === 1) }"
+            >
+              <mb-ripple color="blue">
+                <i class="fas fa-thumbs-up"></i> {{ item.likes }}
+              </mb-ripple>
             </span>
-            <span class="hates">
-              <i class="fas fa-thumbs-down"></i> {{ item.hates }}
+            <span
+              class="hates"
+              :class="{ selected: (item.type === -1) }"
+            >
+              <mb-ripple color="red">
+                <i class="fas fa-thumbs-down"></i> {{ item.hates }}
+              </mb-ripple>
             </span>
             <span class="item__info">
               <span class="item__strong">{{ item.student }}</span>가 <span class="item__strong">{{ item.date }}</span>에 추가함
@@ -27,7 +37,7 @@
       </div>
     </div>
     <div class="add">
-      <h2 class="add__title">제안하기</h2>
+      <h2 class="add__title"><i class="icon-comment" /> 제안하기</h2>
       <p class="add__desc">원하는 음악이 없나요? 직접 기상송을 <strong>제안</strong>해 보세요!</p>
       <div class="add__content">
         <div class="add__field">
@@ -46,12 +56,14 @@
           <span class="add__label"><strong>아티스트 이름</strong></span>
           <input type="text" class="add__input" v-model="form.artist" />
         </div>
-        <button
-          @click="onSubmit"
-          class="add__submit"
-        >
-          추가하기
-        </button>
+        <mb-ripple color="#fff">
+          <button
+            @click="onSubmit"
+            class="add__submit"
+          >
+            추가하기
+          </button>
+        </mb-ripple>
       </div>
     </div>
     <div class="footer">
@@ -87,7 +99,8 @@ export default {
             likes: 5, // 좋아요
             hates: 3, // 싫어요
             student: '1520 여준호', // 작성자(서버에서 문자열로 처리좀)
-            date: '2019-06-10' // timestamp
+            date: '2019-06-10', // timestamp
+            type: 1 // 사용자가 누른 좋아요/싫어요(또는 무응답) 버튼의 타입
           }
         ],
         form: {
@@ -107,7 +120,7 @@ export default {
           })
       },
 
-      onSubmit () {
+      onSubmit () { // 노트북 받으면 비동기로 바꾼다;;
         // get dimigoin token
         this.$api.post('http://dev-api.dimigo.in/auth', {
           id: this.form.id,
