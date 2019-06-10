@@ -99,13 +99,23 @@ p {
   border-radius: 18px;
   border: 0.5px solid rgba(128, 128, 128, 0.2);
   box-shadow: 15px 19px 32px -18px rgba(21,19,19,.07);
-  display: table;
-  border-spacing: 0.5em;
-  padding-left: 1.5em;
+  padding-left: 2em;
+
+  &__content {
+    display: table;
+    border-spacing: 0.5em;
+  }
 
   &__title {
     margin: 0;
     margin-top: 0.5em;
+  }
+
+  &__desc {
+    width: 100%;
+    margin: 0;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
   }
 
   &__field {
@@ -145,6 +155,7 @@ p {
     color: white;
     font-family: 'NanumSquareRound', sans-serif;
     font-weight: 600;
+    margin-top: 0.5em;
   }
 }
 

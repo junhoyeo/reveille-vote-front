@@ -28,28 +28,31 @@
     </div>
     <div class="add">
       <h2 class="add__title">제안하기</h2>
-      <div class="add__field">
-        <span class="add__label">디미고 아이디</span>
-        <input type="text" class="add__input" v-model="form.id" />
+      <p class="add__desc">원하는 음악이 없나요? 직접 기상송을 <strong>제안</strong>해 보세요!</p>
+      <div class="add__content">
+        <div class="add__field">
+          <span class="add__label">디미고 아이디</span>
+          <input type="text" class="add__input" v-model="form.id" />
+        </div>
+        <div class="add__field">
+          <span class="add__label">디미고 비밀번호</span>
+          <input type="password" class="add__input" v-model="form.password" />
+        </div>
+        <div class="add__field">
+          <span class="add__label"><strong>노래 제목</strong></span>
+          <input type="text" class="add__input" v-model="form.title" />
+        </div>
+        <div class="add__field">
+          <span class="add__label"><strong>아티스트 이름</strong></span>
+          <input type="text" class="add__input" v-model="form.artist" />
+        </div>
+        <button
+          @click="onSubmit"
+          class="add__submit"
+        >
+          추가하기
+        </button>
       </div>
-      <div class="add__field">
-        <span class="add__label">디미고 비밀번호</span>
-        <input type="password" class="add__input" v-model="form.password" />
-      </div>
-      <div class="add__field">
-        <span class="add__label"><strong>노래 제목</strong></span>
-        <input type="text" class="add__input" v-model="form.title" />
-      </div>
-      <div class="add__field">
-        <span class="add__label"><strong>아티스트 이름</strong></span>
-        <input type="text" class="add__input" v-model="form.artist" />
-      </div>
-      <button
-        @click="onSubmit"
-        class="add__submit"
-      >
-        추가하기
-      </button>
     </div>
     <div class="footer">
       <a 
