@@ -70,6 +70,16 @@ p {
   span.hates:hover {
     color: rgb(252, 152, 152);
   }
+
+  &__info {
+    color: rgb(172, 172, 172);
+    font-size: 0.7em;
+    float: right;
+  }
+
+  &__strong {
+    font-weight: 600;
+  }
 }
 
 .music {

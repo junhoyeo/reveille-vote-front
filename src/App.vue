@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <h1><i class="icon-request" />기상송 투표</h1>
-    <p>학봉관 아침, 여러분의 잠을 깨워 줄 <strong>기상송</strong>을 직접 골라 보세요! 스팸을 막기 위해서 제안한 학생의 실명이 공개됩니다.</p>
+    <p>학봉관 아침, 여러분의 잠을 깨워 줄 <strong>기상송</strong>을 직접 골라 보세요! 스팸을 방지하기 위해서 제안한 학생의 실명이 공개됩니다.</p>
     <div class="content">
       <div class="list">
         <div
@@ -9,7 +9,7 @@
           v-for="item in list"
         >
           <div class="music">
-            <span class="music__title">{{ item.name }}</span>
+            <span class="music__title">{{ item.title }}</span>
             <span class="music__artist">{{ item.artist }}</span>
           </div>
           <span class="item__thumb">
@@ -19,6 +19,9 @@
             <span class="hates">
               <i class="fas fa-thumbs-down"></i> {{ item.hates }}
             </span>
+            <span class="item__info">
+              <span class="item__strong">{{ item.student }}</span>가 <span class="item__strong">{{ item.date }}</span>에 추가함
+            </span>
           </span>
         </div>
       </div>
@@ -27,21 +30,22 @@
       <h2 class="add__title">제안하기</h2>
       <div class="add__field">
         <span class="add__label">디미고 아이디</span>
-        <input type="text" class="add__input" />
+        <input type="text" class="add__input" v-model="form.id" />
       </div>
       <div class="add__field">
         <span class="add__label">디미고 비밀번호</span>
-        <input type="password" class="add__input" />
+        <input type="password" class="add__input" v-model="form.password" />
       </div>
       <div class="add__field">
         <span class="add__label"><strong>노래 제목</strong></span>
-        <input type="text" class="add__input" />
+        <input type="text" class="add__input" v-model="form.title" />
       </div>
       <div class="add__field">
         <span class="add__label"><strong>아티스트 이름</strong></span>
-        <input type="text" class="add__input" />
+        <input type="text" class="add__input" v-model="form.artist" />
       </div>
       <button
+        @click="onSubmit"
         class="add__submit"
       >
         추가하기
@@ -73,7 +77,22 @@ export default {
 
     data () {
       return {
-        list: []
+        list: [
+          {
+            title: '술이 달다', // 제목
+            artist: '에픽하이', // 아티스트
+            likes: 5, // 좋아요
+            hates: 3, // 싫어요
+            student: '1520 여준호', // 작성자(서버에서 문자열로 처리좀)
+            date: '2019-06-10' // timestamp
+          }
+        ],
+        form: {
+          id: '',
+          password: '',
+          title: '',
+          artist: ''
+        }
       }
     },
 
@@ -85,12 +104,40 @@ export default {
           })
       },
 
-      async likeSong () {
+      onSubmit () {
+        // get dimigoin token
+        this.$api.post('http://dev-api.dimigo.in/auth', {
+          id: this.form.id,
+          password: this.form.password
+        })
+          .then((res) => {
+            console.log(res)
+            const token = res.data.token
 
-      },
+            // send to backend
+            const payload = {
+              token,
+              title: this.form.title,
+              artist: this.form.artist,
+            }
 
-      async hateSong () {
-
+            this.$api.post('', {
+              headers: {
+                Authorization: 'Bearer ' + token //the token is a variable which holds the token
+              }
+            }, payload)
+              .then((res) => {
+                if (res.status === 200) {
+                  this.$swal('성공!', '추가되었습니다.', 'success')
+                }
+              })
+              .catch((error) => {
+                this.$swal('에러!', '백엔드 서버에서 에러가 발생했습니다.', 'error')                
+              })
+          })
+          .catch((error) => {
+            this.$swal('로그인 실패!', '디미고 아이디와 패스워드를 확인해 주세요.', 'error')
+          })
       }
     }
 }
