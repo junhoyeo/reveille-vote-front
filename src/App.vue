@@ -42,19 +42,31 @@
       <div class="add__content">
         <div class="add__field">
           <span class="add__label">디미고 아이디</span>
-          <input type="text" class="add__input" v-model="form.id" />
+          <input
+            type="text" class="add__input" v-model="form.id"
+            placeholder="디미고 계정 아이디"
+          />
         </div>
         <div class="add__field">
-          <span class="add__label">디미고 비밀번호</span>
-          <input type="password" class="add__input" v-model="form.password" />
+          <span class="add__label">디미고 패스워드</span>
+          <input
+            type="password" class="add__input" v-model="form.password" 
+            placeholder="디미고 계정 패스워드"
+          />
         </div>
         <div class="add__field">
-          <span class="add__label"><strong>노래 제목</strong></span>
-          <input type="text" class="add__input" v-model="form.title" />
+          <span class="add__label"><strong>음악 제목</strong></span>
+          <input
+            type="text" class="add__input" v-model="form.title"
+            placeholder="추가할 음악 제목"
+          />
         </div>
         <div class="add__field">
           <span class="add__label"><strong>아티스트 이름</strong></span>
-          <input type="text" class="add__input" v-model="form.artist" />
+          <input
+            type="text" class="add__input" v-model="form.artist"
+            placeholder="추가할 음악 아티스트"
+          />
         </div>
         <mb-ripple color="#fff">
           <button

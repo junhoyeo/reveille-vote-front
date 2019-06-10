@@ -5,6 +5,10 @@
    outline: none;
 }
 
+::placeholder {
+  color: lightgray;
+} 
+
 a {
   text-decoration: none;
   color: gray;
