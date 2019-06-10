@@ -1,0 +1,151 @@
+@import url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
+@import url('https://cdn.jsdelivr.net/gh/dimigoin/dimigoincon@9e0a536bbf40b5e4aabbbee280acceaea559a4c7/css/dimigoincon.css');
+
+*:focus {
+   outline: none;
+}
+
+a {
+  text-decoration: none;
+  color: gray;
+}
+
+html {
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'NanumSquareRound', sans-serif !important;
+}
+
+h1 {
+  margin-left: 1em;
+  margin-top: 1em;
+  margin-bottom: 0.3em;
+}
+
+p {
+  margin: 0;
+  margin-left: 2.5em;
+  margin-bottom: 2em;
+}
+
+.content {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.item {
+  margin: auto;
+  text-align: left;
+  font-size: 1.5em;
+  display: table;
+  border-spacing: 0.3em;
+  margin-bottom: 0.5em;
+  width: 90%;
+  border-radius: 18px;
+  border: 0.5px solid rgba(128, 128, 128, 0.2);
+  box-shadow: 15px 19px 32px -18px rgba(21,19,19,.07);
+  padding: 0.5em;
+  
+  &__thumb {
+    display: table-row;
+    color: rgb(172, 172, 172);
+  }
+
+  span {
+    margin-left: 0.5em;
+    cursor: pointer;
+  }
+
+  span.likes:hover {
+    color: rgb(154, 154, 255);
+  }
+
+  span.hates:hover {
+    color: rgb(252, 152, 152);
+  }
+}
+
+.music {
+  &__title {
+    font-weight: 700;
+  }
+
+  &__artist {
+    margin-left: 0.3em !important;
+  }
+}
+
+.add {
+  margin: auto;
+  padding: 0.5em;
+  width: 90%;
+  border-radius: 18px;
+  border: 0.5px solid rgba(128, 128, 128, 0.2);
+  box-shadow: 15px 19px 32px -18px rgba(21,19,19,.07);
+  display: table;
+  border-spacing: 0.5em;
+  padding-left: 1.5em;
+
+  &__title {
+    margin: 0;
+    margin-top: 0.5em;
+  }
+
+  &__field {
+    display: table-row;
+  }
+
+  &__label,
+  &__input {
+    display: table-cell;
+    border-radius: 12px;
+    border: none;
+  }
+
+  &__label {
+    font-size: 1.2em;
+    width: 20%;
+  }
+
+  &__input {
+    font-size: 1em;
+    box-shadow: 15px 19px 32px -18px rgba(21, 19, 19, 0.2);
+    padding: 0.5em;
+    width: 50%;
+  }
+
+  &__submit {
+    width: 100%;
+    display: table-row;
+    font-size: 1.2em;
+    padding: 0.4em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    border-radius: 50px;
+    border: none;
+    box-shadow: 15px 19px 32px -18px rgba(21, 19, 19, 0.2);
+    background-color: #e83c3d;
+    color: white;
+    font-family: 'NanumSquareRound', sans-serif;
+    font-weight: 600;
+  }
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  padding: 1em;
+  background-color: #e7e7e7;
+  color: gray;
+}
