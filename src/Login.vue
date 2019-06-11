@@ -1,8 +1,18 @@
 <template>
   <div class="content">
-    <input v-model="form.id" type="text">
-    <input v-model="form.password" type="password">
-    <button @click="onLogin">로그인</button>
+    <h1>디미고 기상송</h1>
+    <p>원하는 음악을 기상송으로.</p>
+    <div class="login">
+      <div class="login__field">
+        <span class="login__label">디미고 아이디</span>
+        <input v-model="form.id" type="text" class="login__input">
+      </div>
+      <div class="login__field">
+        <span class="login__label">디미고 패스워드</span>
+        <input v-model="form.password" type="password" class="login__input">
+      </div>
+      <button @click="onLogin">로그인</button>
+    </div>
   </div>
 </template>
 
