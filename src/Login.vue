@@ -122,6 +122,10 @@ html, body, .content {
     box-shadow: 15px 19px 32px -15px rgba(255, 255, 255, 0.7);
   }
 
+  &__input:focus {
+    border: 1px solid gray;
+  }
+
   &__btn {
     color: white;
     background-color: #ec137f;
@@ -134,6 +138,10 @@ html, body, .content {
     font-weight: 800;
     width: 150px;
     box-shadow: 15px 19px 32px -15px rgba(255, 255, 255, 0.7);
+  }
+
+  &__btn:focus {
+    border: 1px solid red;
   }
 
   &__wrap {
