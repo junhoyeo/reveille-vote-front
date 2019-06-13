@@ -1,7 +1,7 @@
 <template>
-    <div class="main">
+  <div class="main">
     <h1>
-      <i class="icon-request"/>기상송 투표
+      <i class="icon-request"/>기상송 투표 <span class="logout" @click="onLogout">로그아웃</span>
     </h1>
     <p>
       학봉관 아침, 여러분의 잠을 깨워 줄
@@ -70,12 +70,6 @@
           </mb-ripple>
         </div>
       </div>
-    </div>
-    <div class="footer">
-      <a href="https://github.com/junhoyeo" target="_blank" v-tooltip="'프론트엔드 개발'">18HD여준호</a>
-      &nbsp;
-      <i class="icon-dimigo"/>&nbsp;
-      <a href="https://github.com/uhmtoto" target="_blank" v-tooltip="'백엔드 개발'">18HD엄서훈</a>
     </div>
   </div>
 </template>
@@ -209,6 +203,11 @@ export default {
     async updateToken(res) {
       this.token = res.token;
       await this.updateList();
+    },
+
+    onLogout() {
+      this.$session.destroy()
+      this.$router.push({ name: 'login'})
     }
   }
 };

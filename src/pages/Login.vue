@@ -24,9 +24,7 @@
 export default {
   beforeCreate() {
     if (this.$session.exists()) {
-      this.$emit("updated", {
-        token: this.$session.get("token")
-      });
+      this.$router.push({ name: 'index' })
     }
   },
   data() {
@@ -54,7 +52,7 @@ export default {
         })
         .then(res => {
           this.$session.set("token", res.data.token);
-          this.$emit("updated", { token: res.data.token });
+          this.$router.push({ name: 'index' })
         })
         .catch(err => {
           this.$swal("에러!", err.message, "error");
