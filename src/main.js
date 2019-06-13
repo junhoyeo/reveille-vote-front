@@ -4,9 +4,12 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import ripple from 'vue-ripple-effect';
 import VueSession from 'vue-session';
 import axios from 'axios';
+
 import App from './App.vue';
+import routes from './router'
 
 import 'vue-ripple-effect/lib/index.css';
+import './styles/base.scss'
 
 Vue.use(VTooltip);
 Vue.use(VueSweetalert2);
@@ -19,5 +22,6 @@ Vue.prototype.$api = axios.create({
 
 new Vue({
   el: '#app',
-  render: h => h(App),
-});
+  router: routes,
+  render: h => h(App)
+}).$mount('#app')
