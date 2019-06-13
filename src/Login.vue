@@ -47,7 +47,7 @@ export default {
         })
         .then(res => {
           this.$session.set("token", res.data.token);
-          this.$emit("updated", { token: this.token });
+          this.$emit("updated", { token: res.data.token });
         })
         .catch(err => {
           this.$swal("에러!", err.message, "error");

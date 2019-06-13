@@ -14,7 +14,7 @@ Vue.use(ripple.install);
 Vue.use(VueSession);
 
 Vue.prototype.$api = axios.create({
-  baseURL: 'http://localhost:3000/',
+  baseURL: 'http://101.101.165.236/',
 });
 
 new Vue({

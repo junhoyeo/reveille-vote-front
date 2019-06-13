@@ -214,6 +214,7 @@ export default {
     },
 
     updateToken(res) {
+      console.log(res)
       this.token = res.token;
     }
   }
