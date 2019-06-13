@@ -22,6 +22,13 @@
 
 <script>
 export default {
+  beforeCreate() {
+    if (this.$session.exists()) {
+      this.$emit("updated", {
+        token: this.$session.get("token")
+      });
+    }
+  },
   data() {
     return {
       form: {
@@ -57,7 +64,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css?family=Black+Han+Sans&display=swap');
 
 .content {

@@ -40,36 +40,36 @@
           </span>
         </div>
       </div>
-    </div>
-    <div class="add">
-      <h2 class="add__title">
-        <i class="icon-comment"/> 제안하기
-      </h2>
-      <p class="add__desc">
-        원하는 음악이 없나요? 직접 기상송을
-        <strong>제안</strong>해 보세요!
-      </p>
-      <div class="add__content">
-        <div class="add__field">
-          <span class="add__label">
-            <strong>음악 제목</strong>
-          </span>
-          <input type="text" class="add__input" v-model.trim="form.title" placeholder="추가할 음악 제목">
+      <div class="add">
+        <h2 class="add__title">
+          <i class="icon-comment"/> 제안하기
+        </h2>
+        <p class="add__desc">
+          원하는 음악이 없나요? 직접 기상송을
+          <strong>제안</strong>해 보세요!
+        </p>
+        <div class="add__content">
+          <div class="add__field">
+            <span class="add__label">
+              <strong>음악 제목</strong>
+            </span>
+            <input type="text" class="add__input" v-model.trim="form.title" placeholder="추가할 음악 제목">
+          </div>
+          <div class="add__field">
+            <span class="add__label">
+              <strong>아티스트 이름</strong>
+            </span>
+            <input
+              type="text"
+              class="add__input"
+              v-model.trim="form.artist"
+              placeholder="추가할 음악 아티스트"
+            >
+          </div>
+          <mb-ripple color="#fff" @click="onSubmit">
+            <button class="add__submit">추가하기</button>
+          </mb-ripple>
         </div>
-        <div class="add__field">
-          <span class="add__label">
-            <strong>아티스트 이름</strong>
-          </span>
-          <input
-            type="text"
-            class="add__input"
-            v-model.trim="form.artist"
-            placeholder="추가할 음악 아티스트"
-          >
-        </div>
-        <mb-ripple color="#fff" @click="onSubmit">
-          <button class="add__submit">추가하기</button>
-        </mb-ripple>
       </div>
     </div>
     <div class="footer">
@@ -85,12 +85,6 @@
 import Login from "./Login.vue";
 
 export default {
-  beforeCreate() {
-    if (this.$session.exists()) {
-      this.token = this.$session.get("token");
-    }
-  },
-
   async created() {
     await this.updateList();
     // TODO: token 생성 시 timestamp와 함께 쿠키에 저장, created에서 불러와 적용 (reduce unnecessary API calls)
@@ -214,7 +208,6 @@ export default {
     },
 
     updateToken(res) {
-      console.log(res)
       this.token = res.token;
     }
   }

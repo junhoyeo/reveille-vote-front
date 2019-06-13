@@ -137,6 +137,7 @@ p {
 }
 
 .add {
+  text-align: left;
   margin: auto;
   padding: 0.5em;
   padding-top: 0.7em;
@@ -211,7 +212,7 @@ p {
 }
 
 .footer {
-  width: 100%;
+  width: -webkit-fill-available;
   display: flex;
   justify-content: center;
   align-items: center;
