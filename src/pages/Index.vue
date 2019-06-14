@@ -198,7 +198,7 @@ export default {
 
     onChangeStatus (item, status) {
       if (item.status === status) { // return if already same status
-        return
+        status = 0
       }
       this.$api
         .put(
