@@ -20,13 +20,13 @@
             </mb-ripple>
           </div>
           <span class="item__thumb">
-            <span class="likes" :class="{ selected: (item.type === 1) }">
+            <span class="likes" :class="{ selected: (item.status === 1) }">
               <mb-ripple color="blue" @click="onClickLike(idx)">
                 <i class="fas fa-thumbs-up"></i>
                 {{ item.likes }}
               </mb-ripple>
             </span>
-            <span class="hates" :class="{ selected: (item.type === -1) }">
+            <span class="hates" :class="{ selected: (item.status === -1) }">
               <mb-ripple color="red" @click="onClickHate(idx)">
                 <i class="fas fa-thumbs-down"></i>
                 {{ item.hates }}
@@ -78,12 +78,12 @@
 import Login from "./Login.vue";
 
 export default {
-  beforeCreate() {
+  created() {
     if (!this.$session.exists()) 
       this.$router.push({ name: 'login' })
-  },
-
-  created() {
+    else {
+      this.token = this.$session.get('token')
+    }
     this.updateList();
   },
 
@@ -162,24 +162,30 @@ export default {
       win.focus();
     },
 
-    async onClickLike(idx) {
+    onClickLike(idx) {
       const item = this.list[idx];
-      if (item.type === 1)
+      if (item.status === 1)
         // 이미 좋아요면
         return;
-      try {
-        await this.$api.post("", {
-          value: 1
-        });
-        await this.updateList();
-      } catch (err) {
-        await this.$swal("에러!", err.message, "error");
-      }
+      this.$api.put(`/music/${item._id}/like`, {
+        value: 1
+      }, {
+        headers: {
+          authorization: this.token
+        }
+      })
+        .then((res) => {
+          console.log(res.status)
+          this.updateList();
+        })
+        .catch((err) => {
+          this.$swal("에러!", err.message, "error");
+        })
     },
 
     async onClickHate(idx) {
       const item = this.list[idx];
-      if (item.type === -1)
+      if (item.status === -1)
         // 이미 싫어요면
         return;
       try {
