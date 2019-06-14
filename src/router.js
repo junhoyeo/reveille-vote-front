@@ -7,16 +7,16 @@ import Index from './pages/Index'
 Vue.use(VueRouter)
 
 export default new VueRouter({
-    routes: [
-        {
-            path: '/',
-            name: 'index',
-            component: Index
-        },
-        {
-            path: '/login',
-            name: 'login',
-            component: Login
-        },
-    ]
+  routes: [
+    {
+      path: '/',
+      name: 'index',
+      component: Index
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
+    }
+  ]
 })

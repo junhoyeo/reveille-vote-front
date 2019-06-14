@@ -1,8 +1,13 @@
 <template>
   <div class="main">
     <h1>
-      <i class="icon-request"/>기상송 투표
-      <span class="logout" @click="onLogout">로그아웃</span>
+      <i class="icon-request" />기상송 투표
+      <span
+        class="logout"
+        @click="onLogout"
+      >
+        로그아웃
+      </span>
     </h1>
     <p>
       학봉관 아침, 여러분의 잠을 깨워 줄
@@ -10,39 +15,66 @@
     </p>
     <div class="content">
       <div class="list">
-        <div class="item" v-for="(item, idx) in list" :key="idx">
+        <div
+          v-for="(item, idx) in list"
+          :key="idx"
+          class="item"
+        >
           <div class="music">
-            <span class="music__title">{{ item.title }}</span>
-            <span class="music__artist">{{ item.artist }}</span>
-            <mb-ripple color="red" @click="onClickYoutube(item)">
+            <span class="music__title">
+              {{ item.title }}
+            </span>
+            <span class="music__artist">
+              {{ item.artist }}
+            </span>
+            <MbRipple
+              color="red"
+              @click="onClickYoutube(item)"
+            >
               <span class="music__youtube">
-                <i class="fab fa-youtube"></i> 유튜브에서 검색하기
+                <i class="fab fa-youtube" /> 유튜브에서 검색하기
               </span>
-            </mb-ripple>
+            </MbRipple>
           </div>
           <span class="item__thumb">
-            <span class="likes" :class="{ selected: (item.status === 1) }">
-              <mb-ripple color="blue" @click="onChangeStatus(item, 1)">
-                <i class="fas fa-thumbs-up"></i>
+            <span
+              class="likes"
+              :class="{ selected: (item.status === 1) }"
+            >
+              <MbRipple
+                color="blue"
+                @click="onChangeStatus(item, 1)"
+              >
+                <i class="fas fa-thumbs-up" />
                 {{ item.likes }}
-              </mb-ripple>
+              </MbRipple>
             </span>
-            <span class="hates" :class="{ selected: (item.status === -1) }">
-              <mb-ripple color="red" @click="onChangeStatus(item, -1)">
-                <i class="fas fa-thumbs-down"></i>
+            <span
+              class="hates"
+              :class="{ selected: (item.status === -1) }"
+            >
+              <MbRipple
+                color="red"
+                @click="onChangeStatus(item, -1)"
+              >
+                <i class="fas fa-thumbs-down" />
                 {{ item.hates }}
-              </mb-ripple>
+              </MbRipple>
             </span>
             <span class="item__info">
-              <span class="item__text">{{ item.student.serial }} {{ item.student.name }}</span>,
-              <span class="item__text">{{ new Date(item.time) | moment('from', 'now') }}</span>
+              <span class="item__text">
+                {{ item.student.serial }} {{ item.student.name }}
+              </span>,
+              <span class="item__text">
+                {{ new Date(item.time) | moment('from', 'now') }}
+              </span>
             </span>
           </span>
         </div>
       </div>
       <div class="add">
         <h2 class="add__title">
-          <i class="icon-comment"/> 제안하기
+          <i class="icon-comment" /> 제안하기
         </h2>
         <p class="add__desc">
           원하는 음악이 없나요? 직접 기상송을
@@ -53,22 +85,32 @@
             <span class="add__label">
               <strong>음악 제목</strong>
             </span>
-            <input type="text" class="add__input" v-model.trim="form.title" placeholder="추가할 음악 제목">
+            <input
+              v-model.trim="form.title"
+              type="text"
+              class="add__input"
+              placeholder="추가할 음악 제목"
+            >
           </div>
           <div class="add__field">
             <span class="add__label">
               <strong>아티스트 이름</strong>
             </span>
             <input
+              v-model.trim="form.artist"
               type="text"
               class="add__input"
-              v-model.trim="form.artist"
               placeholder="추가할 음악 아티스트"
             >
           </div>
-          <mb-ripple color="#fff" @click="onSubmit">
-            <button class="add__submit">추가하기</button>
-          </mb-ripple>
+          <MbRipple
+            color="#fff"
+            @click="onSubmit"
+          >
+            <button class="add__submit">
+              추가하기
+            </button>
+          </MbRipple>
         </div>
       </div>
     </div>
@@ -76,56 +118,49 @@
 </template>
 
 <script>
-import Login from "./Login.vue";
-
 export default {
-  created() {
-    if (!this.$session.exists()) this.$router.push({ name: "login" });
-    else {
-      this.token = this.$session.get("token");
-    }
-    this.updateList();
-  },
-
-  data() {
+  data () {
     return {
-      token: "",
+      token: '',
       list: [],
       form: {
-        title: "",
-        artist: ""
+        title: '',
+        artist: ''
       }
-    };
+    }
   },
-
-  components: {
-    Login
+  created () {
+    if (!this.$session.exists()) this.$router.push({ name: 'login' })
+    else {
+      this.token = this.$session.get('token')
+    }
+    this.updateList()
   },
 
   methods: {
-    updateList() {
+    updateList () {
       this.$api
-        .get("/music", {
+        .get('/music', {
           headers: {
             authorization: this.token
           }
         })
         .then(res => {
-          console.log(res);
-          this.list = res.data;
-        });
+          console.log(res)
+          this.list = res.data
+        })
     },
 
-    onSubmit() {
+    onSubmit () {
       // TODO: 노트북 받으면 비동기로 바꾼다;; (change to async)
       // validate input
       if (!this.form.title || !this.form.artist) {
         this.$swal(
-          "에러!",
-          "음악 제목과 아티스트 이름을 모두 입력해 주세요!",
-          "warning"
-        );
-        return;
+          '에러!',
+          '음악 제목과 아티스트 이름을 모두 입력해 주세요!',
+          'warning'
+        )
+        return
       }
 
       // send to backend
@@ -133,41 +168,41 @@ export default {
         token: this.token,
         title: this.form.title,
         artist: this.form.artist
-      };
+      }
 
       this.$api
         .post(
-          "",
+          '',
           {
             headers: {
-              Authorization: token
+              authorization: this.token
             }
           },
           payload
         )
         .then(res => {
           if (res.status === 200) {
-            this.$swal("성공!", "추가되었습니다.", "success");
-            this.clearForm();
+            this.$swal('성공!', '추가되었습니다.', 'success')
+            this.clearForm()
           }
         })
-        .catch(error => {
-          this.$swal("에러!", "백엔드 서버에서 에러가 발생했습니다.", "error");
-        });
+        .catch(err => {
+          this.$swal('에러!', err.message, 'error')
+        })
     },
 
-    onClickYoutube(item) {
+    onClickYoutube (item) {
       const url = `https://www.youtube.com/results?search_query=${encodeURI(
         `${item.title} ${item.artist}`
-      )}`;
-      const win = window.open(url, "_blank");
-      win.focus();
+      )}`
+      const win = window.open(url, '_blank')
+      win.focus()
     },
 
-    onChangeStatus(item, status) {
-      if (item.status === status)
-        // return if already same status
-        return;
+    onChangeStatus (item, status) {
+      if (item.status === status) { // return if already same status
+        return
+      }
       this.$api
         .put(
           `/music/${item._id}/like`,
@@ -181,26 +216,26 @@ export default {
           }
         )
         .then(res => {
-          this.updateList();
+          this.updateList()
         })
         .catch(err => {
-          this.$swal("에러!", err.message, "error");
-        });
+          this.$swal('에러!', err.message, 'error')
+        })
     },
 
-    clearForm() {
+    clearForm () {
       this.form = {
-        title: "",
-        artist: ""
-      };
+        title: '',
+        artist: ''
+      }
     },
 
-    onLogout() {
-      this.$session.destroy();
-      this.$router.push({ name: "login" });
+    onLogout () {
+      this.$session.destroy()
+      this.$router.push({ name: 'login' })
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
