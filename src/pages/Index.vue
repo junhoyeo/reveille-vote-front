@@ -152,7 +152,7 @@ export default {
     },
 
     onSubmit () {
-      // TODO: 노트북 받으면 비동기로 바꾼다;; (change to async)
+      // TODO: change to async
       // validate input
       if (!this.form.title || !this.form.artist) {
         this.$swal(
@@ -163,27 +163,24 @@ export default {
         return
       }
 
-      // send to backend
-      const payload = {
-        token: this.token,
-        title: this.form.title,
-        artist: this.form.artist
-      }
-
       this.$api
         .post(
-          '',
+          '/music',
+          {
+            title: this.form.title,
+            artist: this.form.artist
+          },
           {
             headers: {
               authorization: this.token
             }
-          },
-          payload
+          }
         )
         .then(res => {
           if (res.status === 200) {
             this.$swal('성공!', '추가되었습니다.', 'success')
             this.clearForm()
+            this.updateList()
           }
         })
         .catch(err => {
