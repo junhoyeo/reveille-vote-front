@@ -69,7 +69,7 @@ p {
     float: right;
   }
 
-  &__strong {
+  &__text {
     font-weight: 600;
     margin: 0 !important;
   }
@@ -107,6 +107,7 @@ p {
 .add {
   text-align: left;
   margin: auto;
+  margin-bottom: 5em;
   padding: 0.5em;
   padding-top: 0.7em;
   padding-bottom: 0.7em;

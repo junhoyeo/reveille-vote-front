@@ -33,8 +33,8 @@
               </mb-ripple>
             </span>
             <span class="item__info">
-              <span class="item__strong">{{ item.student }}</span>가
-              <span class="item__strong">{{ item.date }}</span>에 추가함
+              <span class="item__text">{{ item.student.serial }} {{ item.student.name }}</span>,
+              <span class="item__text">{{ new Date(item.time) | moment('from', 'now') }}</span>
             </span>
           </span>
         </div>
@@ -83,9 +83,8 @@ export default {
       this.$router.push({ name: 'login' })
   },
 
-  async created() {
-    await this.updateList();
-    // TODO: token 생성 시 timestamp와 함께 쿠키에 저장, created에서 불러와 적용 (reduce unnecessary API calls)
+  created() {
+    this.updateList();
   },
 
   data() {
@@ -104,14 +103,14 @@ export default {
   },
 
   methods: {
-    async updateList() {
+    updateList() {
       this.$api.get("/music", {
         headers: {
           authorization: this.token
         }
       }).then((res) => {
         console.log(res)
-        this.list = res.data.list;
+        this.list = res.data;
       });
     },
 

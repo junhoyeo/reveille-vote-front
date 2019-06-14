@@ -16,6 +16,12 @@ Vue.use(VueSweetalert2);
 Vue.use(ripple.install);
 Vue.use(VueSession);
 
+const moment = require('moment')
+require('moment/locale/ko')
+Vue.use(require('vue-moment'), {
+  moment
+})
+
 Vue.prototype.$api = axios.create({
   baseURL: 'http://101.101.165.236/',
 });
