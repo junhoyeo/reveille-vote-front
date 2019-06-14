@@ -1,7 +1,8 @@
 <template>
   <div class="main">
     <h1>
-      <i class="icon-request"/>기상송 투표 <span class="logout" @click="onLogout">로그아웃</span>
+      <i class="icon-request"/>기상송 투표
+      <span class="logout" @click="onLogout">로그아웃</span>
     </h1>
     <p>
       학봉관 아침, 여러분의 잠을 깨워 줄
@@ -21,13 +22,13 @@
           </div>
           <span class="item__thumb">
             <span class="likes" :class="{ selected: (item.status === 1) }">
-              <mb-ripple color="blue" @click="onClickLike(idx)">
+              <mb-ripple color="blue" @click="onChangeStatus(item, 1)">
                 <i class="fas fa-thumbs-up"></i>
                 {{ item.likes }}
               </mb-ripple>
             </span>
             <span class="hates" :class="{ selected: (item.status === -1) }">
-              <mb-ripple color="red" @click="onClickHate(idx)">
+              <mb-ripple color="red" @click="onChangeStatus(item, -1)">
                 <i class="fas fa-thumbs-down"></i>
                 {{ item.hates }}
               </mb-ripple>
@@ -79,10 +80,9 @@ import Login from "./Login.vue";
 
 export default {
   created() {
-    if (!this.$session.exists()) 
-      this.$router.push({ name: 'login' })
+    if (!this.$session.exists()) this.$router.push({ name: "login" });
     else {
-      this.token = this.$session.get('token')
+      this.token = this.$session.get("token");
     }
     this.updateList();
   },
@@ -104,14 +104,16 @@ export default {
 
   methods: {
     updateList() {
-      this.$api.get("/music", {
-        headers: {
-          authorization: this.token
-        }
-      }).then((res) => {
-        console.log(res)
-        this.list = res.data;
-      });
+      this.$api
+        .get("/music", {
+          headers: {
+            authorization: this.token
+          }
+        })
+        .then(res => {
+          console.log(res);
+          this.list = res.data;
+        });
     },
 
     onSubmit() {
@@ -162,40 +164,28 @@ export default {
       win.focus();
     },
 
-    onClickLike(idx) {
-      const item = this.list[idx];
-      if (item.status === 1)
-        // 이미 좋아요면
+    onChangeStatus(item, status) {
+      if (item.status === status)
+        // return if already same status
         return;
-      this.$api.put(`/music/${item._id}/like`, {
-        value: 1
-      }, {
-        headers: {
-          authorization: this.token
-        }
-      })
-        .then((res) => {
-          console.log(res.status)
+      this.$api
+        .put(
+          `/music/${item._id}/like`,
+          {
+            value: status
+          },
+          {
+            headers: {
+              authorization: this.token
+            }
+          }
+        )
+        .then(res => {
           this.updateList();
         })
-        .catch((err) => {
+        .catch(err => {
           this.$swal("에러!", err.message, "error");
-        })
-    },
-
-    async onClickHate(idx) {
-      const item = this.list[idx];
-      if (item.status === -1)
-        // 이미 싫어요면
-        return;
-      try {
-        await this.$api.post("", {
-          value: -1
         });
-        await this.updateList();
-      } catch (err) {
-        await this.$swal("에러!", err.message, "error");
-      }
     },
 
     clearForm() {
@@ -205,14 +195,9 @@ export default {
       };
     },
 
-    async updateToken(res) {
-      this.token = res.token;
-      await this.updateList();
-    },
-
     onLogout() {
-      this.$session.destroy()
-      this.$router.push({ name: 'login'})
+      this.$session.destroy();
+      this.$router.push({ name: "login" });
     }
   }
 };

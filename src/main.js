@@ -23,7 +23,7 @@ Vue.use(require('vue-moment'), {
 })
 
 Vue.prototype.$api = axios.create({
-  baseURL: 'http://101.101.165.236/',
+  baseURL: 'http://localhost/',
 });
 
 new Vue({
