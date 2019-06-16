@@ -80,7 +80,7 @@ export default {
           this.$router.push({ name: 'index' })
         })
         .catch(err => {
-          this.$swal('에러!', err.response.data.error, 'error')
+          this.$swal('에러!', '로그인을 실패했습니다.', 'error')
         })
     }
   }
