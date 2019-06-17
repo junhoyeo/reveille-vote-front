@@ -64,6 +64,7 @@
                 {{ item.hates }}
               </mb-ripple>
             </span>
+            <i class="fas fa-trash" @click="onClickDelete(item)"></i>
             <span class="item__info">
               <span class="item__text">
                 {{ renderUser(item) }},
@@ -220,6 +221,26 @@ export default {
         })
         .catch(err => {
           this.$swal('에러!', err.message, 'error')
+        })
+    },
+
+    onClickDelete (item) {
+      this.$api
+        .delete(
+          `/music/${item._id}`,
+          {
+            headers: {
+              authorization: this.token
+            }
+          }
+        )
+        .then(res => {
+          this.updateList()
+        })
+        .catch(err => {
+          if (err.response.status === 403)
+            this.$swal('에러!', '권한이 없습니다.', 'error')
+          else this.$swal('에러!', err.message, 'error')
         })
     },
 
