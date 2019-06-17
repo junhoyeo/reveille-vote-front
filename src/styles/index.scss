@@ -25,7 +25,7 @@ p {
   margin-bottom: 0.5em;
   width: 90%;
   border-radius: 18px;
-  border: 0.5px solid rgba(128, 128, 128, 0.2);
+  border: 1px solid rgba(128, 128, 128, 0.5);
   box-shadow: 15px 19px 32px -18px rgba(21,19,19,.07);
   padding: 0.5em;
   
@@ -79,13 +79,24 @@ p {
   }
 }
 
+.item:first-child {
+  border: 5px solid rgba(11, 1, 195, 0.5);
+  color: #0B01C3;
+}
+
 .music {
   margin-bottom: 0.2em;
+
+  &__rank {
+    font-weight: 800;
+    font-size: 1.2rem;
+    margin-left: 0.3em !important;
+    margin-right: 0.5em !important;
+  }
 
   &__title {
     font-weight: 700;
     margin-right: 0 !important;
-    margin-left: 0.3em !important;
   }
 
   &__artist {
@@ -115,7 +126,7 @@ p {
   padding-bottom: 0.7em;
   width: 89%;
   border-radius: 18px;
-  border: 0.5px solid rgba(128, 128, 128, 0.2);
+  border: 1px solid rgba(128, 128, 128, 0.5);
   box-shadow: 15px 19px 32px -18px rgba(21,19,19,.07);
   padding-left: 2em;
 
@@ -158,6 +169,7 @@ p {
     box-shadow: 15px 19px 32px -18px rgba(21, 19, 19, 0.2);
     padding: 0.5em;
     width: 50%;
+    border: 1px solid rgba(128, 128, 128, 0.5);
   }
 
   &__submit {
@@ -170,7 +182,7 @@ p {
     border-radius: 50px;
     border: none;
     box-shadow: 15px 19px 32px -18px rgba(21, 19, 19, 0.2);
-    background-color: #e83c3d;
+    background-color: #0B01C3;
     color: white;
     font-family: 'NanumSquareRound', sans-serif;
     font-weight: 600;

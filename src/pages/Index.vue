@@ -22,6 +22,9 @@
         >
           <div class="music">
             <span class="music__title">
+              <span class="music__rank">
+                {{ idx + 1 }}위
+              </span>
               {{ item.title }}
             </span>
             <span class="music__artist">
