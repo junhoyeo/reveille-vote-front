@@ -224,24 +224,36 @@ export default {
         })
     },
 
-    onClickDelete (item) {
-      this.$api
-        .delete(
-          `/music/${item._id}`,
-          {
-            headers: {
-              authorization: this.token
+    async onClickDelete (item) {
+      const { value: answer } = await this.$swal({
+        type: 'warning',
+        title: '정말 삭제하시겠습니까?',
+        text: '삭제한 음악은 복구하실 수 없으며, 다시 추가하셔야 합니다.',
+        confirmButtonColor: '#0b01c3',
+        cancelButtonColor: '#ababab',
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소',
+        showCancelButton: true
+      })
+
+      if (!answer) return
+      try {
+        await this.$api
+          .delete(
+            `/music/${item._id}`,
+            {
+              headers: {
+                authorization: this.token
+              }
             }
-          }
-        )
-        .then(res => {
-          this.updateList()
-        })
-        .catch(err => {
-          if (err.response.status === 403)
-            this.$swal('에러!', '권한이 없습니다.', 'error')
-          else this.$swal('에러!', err.message, 'error')
-        })
+          )
+        this.$swal('삭제되었습니다', '', 'success')
+      } catch(err) {
+        if (err.response.status === 403)
+          this.$swal('에러!', '권한이 없습니다.', 'error')
+        else this.$swal('에러!', err.message, 'error')
+      }
+      this.updateList()
     },
 
     clearForm () {

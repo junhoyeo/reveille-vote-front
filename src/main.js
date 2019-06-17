@@ -1,3 +1,5 @@
+import 'babel-polyfill'
+
 import Vue from 'vue'
 import VTooltip from 'v-tooltip'
 import VueSweetalert2 from 'vue-sweetalert2'
