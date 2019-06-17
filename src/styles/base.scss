@@ -41,3 +41,18 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
 }
+
+#app {
+  background-size: cover; 
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+  text-align: left;
+}
+
+html, 
+body, 
+#app {
+  width: 100%;
+  height: -webkit-fill-available;
+}

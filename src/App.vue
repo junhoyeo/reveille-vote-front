@@ -1,5 +1,8 @@
 <template>
-  <div id="app">
+  <div
+    id="app"
+    :style="{ 'background-image': `url('${require('./images/background.png')})` }"
+  >
     <RouterView />
     <div class="footer">
       <a

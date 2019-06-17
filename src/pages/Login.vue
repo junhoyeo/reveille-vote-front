@@ -1,7 +1,6 @@
 <template>
   <div
     class="content"
-    :style="{ 'background-image': `url('${require('./../images/background.png')}) no-repeat center center fixed` }"
   >
     <div class="login">
       <h1 class="login__title">
