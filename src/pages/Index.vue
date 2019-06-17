@@ -63,8 +63,8 @@
             </span>
             <span class="item__info">
               <span class="item__text">
-                {{ item.student.serial }} {{ item.student.name }}
-              </span>,
+                {{ renderUser(item) }},
+              </span>
               <span class="item__text">
                 {{ new Date(item.time) | moment('from', 'now') }}
               </span>
@@ -230,6 +230,12 @@ export default {
     onLogout () {
       this.$session.destroy()
       this.$router.push({ name: 'login' })
+    },
+
+    renderUser (item) {
+      if (item.student.serial)
+        return `${item.student.serial} ${item.student.name}`
+      else return `${item.student.name} 선생님`
     }
   }
 }
