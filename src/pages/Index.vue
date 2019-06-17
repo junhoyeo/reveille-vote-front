@@ -27,39 +27,39 @@
             <span class="music__artist">
               {{ item.artist }}
             </span>
-            <MbRipple
+            <mb-ripple
               color="red"
               @click="onClickYoutube(item)"
             >
               <span class="music__youtube">
                 <i class="fab fa-youtube" /> 유튜브에서 검색하기
               </span>
-            </MbRipple>
+            </mb-ripple>
           </div>
           <span class="item__thumb">
             <span
               class="likes"
               :class="{ selected: (item.status === 1) }"
             >
-              <MbRipple
+              <mb-ripple
                 color="blue"
                 @click="onChangeStatus(item, 1)"
               >
                 <i class="fas fa-thumbs-up" />
                 {{ item.likes }}
-              </MbRipple>
+              </mb-ripple>
             </span>
             <span
               class="hates"
               :class="{ selected: (item.status === -1) }"
             >
-              <MbRipple
+              <mb-ripple
                 color="red"
                 @click="onChangeStatus(item, -1)"
               >
                 <i class="fas fa-thumbs-down" />
                 {{ item.hates }}
-              </MbRipple>
+              </mb-ripple>
             </span>
             <span class="item__info">
               <span class="item__text">
@@ -103,14 +103,14 @@
               placeholder="추가할 음악 아티스트"
             >
           </div>
-          <MbRipple
+          <mb-ripple
             color="#fff"
             @click="onSubmit"
           >
             <button class="add__submit">
               추가하기
             </button>
-          </MbRipple>
+          </mb-ripple>
         </div>
       </div>
     </div>
