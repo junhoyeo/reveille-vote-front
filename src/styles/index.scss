@@ -52,14 +52,25 @@ h1, p {
 
   span.likes,
   span.hates,
-  i.fa-trash {
+  span.delete {
     cursor: pointer;
   }
 
+  span.delete {
+    font-size: 1rem;
+  }
+
+  span.delete-text {
+    margin-left: 0.3rem;
+  }
+
   span.likes:hover,
-  span.hates:hover,
-  i.fa-trash:hover {
+  span.hates:hover {
     color: rgb(153, 153, 153);
+  }
+
+  span.delete:hover {
+    color: rgb(80, 80, 80);
   }
 
   span.likes.selected {

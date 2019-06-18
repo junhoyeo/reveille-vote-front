@@ -64,7 +64,13 @@
                 {{ item.hates }}
               </mb-ripple>
             </span>
-            <i class="fas fa-trash" @click="onClickDelete(item)"></i>
+            <span
+              class="delete"
+              v-if="isDeleteAble(item)"
+              @click="onClickDelete(item)"
+            >
+              <i class="fas fa-trash" /><span class="delete-text">삭제하기</span>
+            </span>
             <span class="item__info">
               <span class="item__text">
                 {{ renderUser(item) }},
@@ -126,6 +132,7 @@ export default {
   data () {
     return {
       token: '',
+      user: {},
       list: [],
       form: {
         title: '',
@@ -137,6 +144,7 @@ export default {
     if (!this.$session.exists()) this.$router.push({ name: 'login' })
     else {
       this.token = this.$session.get('token')
+      this.user = this.$session.get('user')
     }
     this.updateList()
   },
@@ -266,12 +274,21 @@ export default {
     onLogout () {
       this.$session.destroy()
       this.$router.push({ name: 'login' })
+      this.$router.go()
     },
 
     renderUser (item) {
       if (item.student.serial)
         return `${item.student.serial} ${item.student.name}`
       else return `${item.student.name} 선생님`
+    },
+
+    isDeleteAble (item) {
+      if (item.student.serial === this.user.serial)
+        return true
+      else if (['T', 'D', '*'].includes(this.user.user_type))
+        return true
+      return false
     }
   }
 }
@@ -280,4 +297,10 @@ export default {
 <style lang="scss" scoped>
 @import "./../styles/index.scss";
 @import "./../styles/tooltip.css";
+</style>
+
+<style>
+html, body, #app {
+  height: fit-content;
+}
 </style>

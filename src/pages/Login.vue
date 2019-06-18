@@ -76,6 +76,7 @@ export default {
         })
         .then(res => {
           this.$session.set('token', res.data.token)
+          this.$session.set('user', res.data.userInfo)
           this.$router.push({ name: 'index' })
         })
         .catch(err => {
