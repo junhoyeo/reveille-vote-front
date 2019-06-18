@@ -188,7 +188,7 @@ export default {
           }
         })
         .catch(err => {
-          this.$swal('에러!', err.message, 'error')
+          this.$swal('에러!', err.response.data.error, 'error')
         })
     },
 
@@ -220,7 +220,7 @@ export default {
           this.updateList()
         })
         .catch(err => {
-          this.$swal('에러!', err.message, 'error')
+          this.$swal('에러!', err.response.data.error, 'error')
         })
     },
 
@@ -251,7 +251,7 @@ export default {
       } catch(err) {
         if (err.response.status === 403)
           this.$swal('에러!', '권한이 없습니다.', 'error')
-        else this.$swal('에러!', err.message, 'error')
+        else this.$swal('에러!', err.response.data.error, 'error')
       }
       this.updateList()
     },
